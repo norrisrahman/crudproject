@@ -25,10 +25,11 @@ int main() {
     cout << "Pilih Jenis Operasi :" << endl;
     cout << "1. Tambah Data" << endl;
     cout << "2. Tampilkan Seluruh Data" << endl;
-    cout << "3. Exit" << endl;
+    cout << "3. Cari Record Data" << endl;
+    cout << "4. Exit" << endl;
     cout << endl;
 
-    cout << "Pilih Menu [1-3]: ";
+    cout << "Pilih Menu [1-4]: ";
     cin >> x;
 
     if (x == "1"){
@@ -73,9 +74,7 @@ void addData() {
     fstream data;
     data.open("data.txt", ios::app);
 
-    data << ternak.tanggal <<endl;
-    data << ternak.ID << endl;
-    data << ternak.jumlahTelur << endl << endl;
+    data << ternak.tanggal << "    "<< ternak.ID << "   " << ternak.jumlahTelur << endl;
 
     data.close();
 }
@@ -122,7 +121,7 @@ void sortData() {
     
     Record* array = new Record[size];
 
-    
+    cout << size << endl;
 
     data.close();
 }
