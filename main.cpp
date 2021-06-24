@@ -12,9 +12,17 @@ struct Record {
     string jumlahTelur;
 }ternak;
 
+struct Temp {
+	string tanggal;
+	int ID;
+    string jumlahTelur;
+};
+
 void addData();
 void inputData();
 void readData();
+void printData();
+void sortDesc();
 void sortData();
 
 int main() {
@@ -101,9 +109,36 @@ void readData() {
     data.close();
 }
 
+void sortDesc(struct Record arr[], int n){
+    int i, j;
+    struct Record key;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;        
+        while (j >= 0 && arr[j].ID < key.ID) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+            arr[j + 1] = key;
+    }
+}
+
+void printData (struct Temp array[], int n) {
+    int i;
+    cout << "\nHasil Pengurutan Data Mahasiswa :\n" << endl;
+        for (i=0;i<n;i++) {
+            cout << array[i].tanggal << "\t\t" << array[i].ID << "\t\t" << array[i].jumlahTelur << endl;
+            i++;
+	} 
+    cout << endl;   
+}
+
 void sortData() {
     ifstream data;
     data.open("data.txt");
+    int n = 0;
+
+    Temp array[n];
 
 
     data >> ternak.tanggal;
@@ -112,16 +147,19 @@ void sortData() {
     
     while (!data.eof()){
 
+        ternak.tanggal = array[n].tanggal;
+
         data >> ternak.tanggal;
         data >> ternak.ID;
         data >> ternak.jumlahTelur;
+        n++;
     }
 
-    int size = sizeof(Record);
-    
-    Record* array = new Record[size];
-
-    cout << size << endl;
-
     data.close();
+
+    cout << n << endl;
+    cout << array[1].tanggal<< endl;
+
+    // sortDesc(array, n);
+    printData(array, n);
 }
