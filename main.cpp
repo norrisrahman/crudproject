@@ -11,6 +11,7 @@ struct Record {
 	string tanggal;
 	string ID;
     string jumlahTelur;
+    string harga;
 }ternak;
 
 void addData();
@@ -75,29 +76,34 @@ void inputData() {
     srand((unsigned)time(0));
     string tanggal,bulan,tahun, tgl;
 
+    system("clear");
     cout << "Input Record Harian" << endl;
     cout << "Masukkan Tanggal \t: ";
     cin >> tanggal;
-    cout << "Masukkan Bulan \t: ";
+    cout << "Masukkan Bulan \t\t: ";
     cin >> bulan;
-    cout << "Masukkan Tahun \t: ";
+    cout << "Masukkan Tahun \t\t: ";
     cin >> tahun;
 
     ternak.tanggal = tanggal + "/" + bulan + "/" + tahun;
 
     ternak.ID = tahun + bulan + tanggal;
 
-    cout << "Masukkan Jumlah \t: ";
+    cout << "Masukkan Jumlah Telur \t: ";
     cin >> ternak.jumlahTelur;
+    cout << "Masukkan Harga Telur/Kg \t: ";
+    cin >> ternak.harga; 
 
     addData();
+
+    cout << endl;
 }
 
 void addData() {
     fstream data;
     data.open("data.txt", ios::app);
 
-    data << ternak.tanggal << "    "<< ternak.ID << "   " << ternak.jumlahTelur << endl;
+    data << ternak.tanggal << "    "<< ternak.ID << "   " << ternak.jumlahTelur << "   " << ternak.harga << endl;
 
     data.close();
 }
@@ -109,18 +115,22 @@ void readData() {
     data >> ternak.tanggal;
     data >> ternak.ID;
     data >> ternak.jumlahTelur;
+    data >> ternak.harga;
     
+    system ("clear");
     cout << "\nMenampilkan Semua Record Data :\n" << endl;
-    cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur\t\t" << endl;
-    cout << "=====================================================" << endl;
+    cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
+    cout << "======================================================================" << endl;
     while (!data.eof()){
-        cout << ternak.tanggal << "\t\t" << ternak.ID << "\t\t" << ternak.jumlahTelur << endl;
+        cout << ternak.tanggal << "\t\t" << ternak.ID << "\t" << ternak.jumlahTelur << "\t\t"<< "Rp " << ternak.harga << endl;
 
         data >> ternak.tanggal;
         data >> ternak.ID;
         data >> ternak.jumlahTelur;
+        data >> ternak.harga;
     }
     cout << endl;
+    
     data.close();
 }
 
@@ -144,7 +154,7 @@ void sortQty(struct Record arr[], int n) {
     for (i = 1; i < n; i++) {
         key = arr[i];
         j = i - 1;        
-        while (j >= 0 && arr[j].jumlahTelur > key.jumlahTelur) {
+        while (j >= 0 && arr[j].jumlahTelur < key.jumlahTelur) {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
@@ -181,6 +191,7 @@ void sortData(int x) {
         Database >> sortRecord[i].tanggal;
         Database >> sortRecord[i].ID;
         Database >> sortRecord[i].jumlahTelur;
+        Database >> sortRecord[i].harga;
     }
 
     Database.close();
@@ -202,24 +213,24 @@ void saveDB(struct Record sortRecord[], int size) {
 
     for (int i=0; i < size; i++){
 
-        Database << sortRecord[i].tanggal << "    "<< sortRecord[i].ID << "   " << sortRecord[i].jumlahTelur << endl;
+        Database << ternak.tanggal << "    " << ternak.ID << "   " << ternak.jumlahTelur << "   " << ternak.harga << endl;
     }
 
     Database.close();
 }
 
 void printErr () {
+    system ("clear");
     cout << "\n\nKeyword Invalid / Data Tidak Ada\n\n"<< endl;
 }
 
 void printSearch (Record array) {
-    cout << "\nHasil Pencarian Data Mahasiswa :\n" << endl;
-    cout << array.tanggal << "\t\t" << array.ID << "\t\t" << array.jumlahTelur << endl;
+    system ("clear");
+    cout << "\nHasil Pencarian Data :\n" << endl;
+    cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
+    cout << "======================================================================" << endl;
+    cout << ternak.tanggal << "\t\t" << ternak.ID << "\t" << ternak.jumlahTelur << "\t\t"<< "Rp " << ternak.harga << endl;
     cout << endl; 
-}
-
-void Search(){
-    cout << "Hello" << endl;
 }
 
 void searchData () {
@@ -239,6 +250,7 @@ void searchData () {
         Database >> array[i].tanggal;
         Database >> array[i].ID;
         Database >> array[i].jumlahTelur;
+        Database >> array[i].harga;
     }
 
     Database.close();
