@@ -18,7 +18,8 @@ void inputData();
 void readData();
 void printData();
 int dataSize(fstream &Database);
-void sortData();
+void sortData(int x);
+void saveDB(struct Record sortRecord[], int size);
 
 int main() {
     string x;
@@ -29,7 +30,9 @@ int main() {
     cout << "1. Tambah Data" << endl;
     cout << "2. Tampilkan Seluruh Data" << endl;
     cout << "3. Urutkan Data dari Data Terbaru" << endl;
-    cout << "4. Exit" << endl;
+    cout << "4. Urutkan Data Berdasarkan Jumlah Telur" << endl;
+    cout << "5. Mencari Data" << endl;
+    cout << "6. Exit" << endl;
     cout << endl;
 
     cout << "Pilih Menu [1-4]: ";
@@ -44,10 +47,14 @@ int main() {
         goto menu;
     }
     else if (x =="3" ) {
-        sortData();
+        sortData(1);
         goto menu;
     }
-    else if (x == "4") {
+    else if (x == "4"){
+        sortData(2);
+        goto menu;
+    }
+    else if (x == "5") {
         system("cls");
         atexit;
     }
@@ -125,6 +132,20 @@ void sortDesc(struct Record arr[], int n){
     }
 }
 
+void sortQty(struct Record arr[], int n) {
+    int i, j;
+    struct Record key;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;        
+        while (j >= 0 && arr[j].jumlahTelur > key.jumlahTelur) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+            arr[j + 1] = key;
+    }
+}
+
 int dataSize(fstream &Database) {
     Record dataSize;
     int size;
@@ -139,7 +160,7 @@ int dataSize(fstream &Database) {
     return size ;
 }
 
-void sortData() {
+void sortData(int x) {
     fstream Database;
     int size;
 
@@ -158,8 +179,19 @@ void sortData() {
 
     Database.close();
 
-    sortDesc(sortRecord, size);
+    if (x == 1) {
+        sortDesc(sortRecord, size);
+        saveDB(sortRecord, size);
+    }
+    else if ( x== 2) {
+        sortQty(sortRecord, size);
+        saveDB(sortRecord, size);
+    }
+}
 
+void saveDB(struct Record sortRecord[], int size) {
+
+    fstream Database;
     Database.open("data.txt", ios::trunc | ios::out);
 
     for (int i=0; i < size; i++){
