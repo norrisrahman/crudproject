@@ -101,7 +101,7 @@ void inputData() {
 
 void addData() {
     fstream data;
-    data.open("data.txt", ios::app);
+    data.open("data2.txt", ios::app);
 
     data << ternak.tanggal << "    "<< ternak.ID << "   " << ternak.jumlahTelur << "   " << ternak.harga << endl;
 
@@ -110,7 +110,7 @@ void addData() {
 
 void readData() {
     ifstream data;
-    data.open("data.txt");
+    data.open("data2.txt");
 
     data >> ternak.tanggal;
     data >> ternak.ID;
@@ -140,7 +140,7 @@ void sortDesc(struct Record arr[], int n){
     for (i = 1; i < n; i++) {
         key = arr[i];
         j = i - 1;        
-        while (j >= 0 && arr[j].tanggal < key.tanggal) {
+        while (j >= 0 && arr[j].ID < key.ID) {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
@@ -167,7 +167,7 @@ int dataSize(fstream &Database) {
     int size;
 
 
-    Database.open("data.txt");
+    Database.open("data2.txt");
     while (getline(Database, dataSize.tanggal))
         size++;
 
@@ -182,7 +182,7 @@ void sortData(int x) {
 
     size = dataSize(Database);
 
-    Database.open("data.txt");
+    Database.open("data2.txt");
 
     Record* sortRecord = new Record[size];
 
@@ -209,11 +209,11 @@ void sortData(int x) {
 void saveDB(struct Record sortRecord[], int size) {
 
     fstream Database;
-    Database.open("data.txt", ios::trunc | ios::out);
+    Database.open("data2.txt", ios::trunc | ios::out);
 
     for (int i=0; i < size; i++){
 
-        Database << ternak.tanggal << "    " << ternak.ID << "   " << ternak.jumlahTelur << "   " << ternak.harga << endl;
+        Database << sortRecord[i].tanggal << "    " << sortRecord[i].ID << "   " << sortRecord[i].jumlahTelur << "   " << sortRecord[i].harga << endl;
     }
 
     Database.close();
@@ -229,7 +229,7 @@ void printSearch (Record array) {
     cout << "\nHasil Pencarian Data :\n" << endl;
     cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
     cout << "======================================================================" << endl;
-    cout << ternak.tanggal << "\t\t" << ternak.ID << "\t" << ternak.jumlahTelur << "\t\t"<< "Rp " << ternak.harga << endl;
+    cout << array.tanggal << "\t\t" << array.ID << "\t" << array.jumlahTelur << "\t\t"<< "Rp " << array.harga << endl;
     cout << endl; 
 }
 
@@ -241,7 +241,7 @@ void searchData () {
 
     size = dataSize(Database);
 
-    Database.open("data.txt");
+    Database.open("data2.txt");
 
     Record* array = new Record[size];
 
