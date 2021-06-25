@@ -20,6 +20,8 @@ void printData();
 int dataSize(fstream &Database);
 void sortData(int x);
 void saveDB(struct Record sortRecord[], int size);
+void searchData();
+void Search();
 
 int main() {
     string x;
@@ -54,7 +56,11 @@ int main() {
         sortData(2);
         goto menu;
     }
-    else if (x == "5") {
+    else if (x =="5") {
+        searchData();
+        goto menu;
+    }
+    else if (x == "6") {
         system("cls");
         atexit;
     }
@@ -200,4 +206,51 @@ void saveDB(struct Record sortRecord[], int size) {
     }
 
     Database.close();
+}
+
+void printErr () {
+    cout << "\n\nKeyword Invalid / Data Tidak Ada\n\n"<< endl;
+}
+
+void printSearch (Record array) {
+    cout << "\nHasil Pencarian Data Mahasiswa :\n" << endl;
+    cout << array.tanggal << "\t\t" << array.ID << "\t\t" << array.jumlahTelur << endl;
+    cout << endl; 
+}
+
+void Search(){
+    cout << "Hello" << endl;
+}
+
+void searchData () {
+    string keyword;
+    int size;
+
+    fstream Database;
+
+    size = dataSize(Database);
+
+    Database.open("data.txt");
+
+    Record* array = new Record[size];
+
+    for(int i = 0; i<size; i++){
+
+        Database >> array[i].tanggal;
+        Database >> array[i].ID;
+        Database >> array[i].jumlahTelur;
+    }
+
+    Database.close();
+
+    cout<<"Masukkan Tanggal Record (dd/mm/yyyy) : ";
+    cin >> keyword;
+
+    for(int i=0;i<size;i++) {
+        if(array[i].tanggal==keyword) {
+            printSearch(array[i]);
+            return;
+        }
+    }
+    printErr();
 }
