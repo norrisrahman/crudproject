@@ -2,7 +2,6 @@
 #include <array>
 #include <cstdlib>
 #include <fstream>
-#include <ctime>
 #include <string>
 
 using namespace std;
@@ -74,7 +73,6 @@ int main() {
 }
 
 void inputData() {
-    srand((unsigned)time(0));
     string tanggal,bulan,tahun, tgl;
 
     system("clear");
