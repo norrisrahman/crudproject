@@ -3,26 +3,21 @@
 #include <cstdlib>
 #include <fstream>
 #include <ctime>
+#include <string>
 
 using namespace std;
 
 struct Record {
 	string tanggal;
-	int ID;
+	string ID;
     string jumlahTelur;
 }ternak;
-
-struct Temp {
-	string tanggal;
-	int ID;
-    string jumlahTelur;
-};
 
 void addData();
 void inputData();
 void readData();
 void printData();
-void sortDesc();
+int dataSize(fstream &Database);
 void sortData();
 
 int main() {
@@ -33,7 +28,7 @@ int main() {
     cout << "Pilih Jenis Operasi :" << endl;
     cout << "1. Tambah Data" << endl;
     cout << "2. Tampilkan Seluruh Data" << endl;
-    cout << "3. Cari Record Data" << endl;
+    cout << "3. Urutkan Data dari Data Terbaru" << endl;
     cout << "4. Exit" << endl;
     cout << endl;
 
@@ -65,12 +60,19 @@ int main() {
 
 void inputData() {
     srand((unsigned)time(0));
+    string tanggal,bulan,tahun, tgl;
 
     cout << "Input Record Harian" << endl;
     cout << "Masukkan Tanggal \t: ";
-    cin >> ternak.tanggal;
+    cin >> tanggal;
+    cout << "Masukkan Bulan \t: ";
+    cin >> bulan;
+    cout << "Masukkan Tahun \t: ";
+    cin >> tahun;
 
-    ternak.ID = rand();
+    ternak.tanggal = tanggal + "/" + bulan + "/" + tahun;
+
+    ternak.ID = tahun + bulan + tanggal;
 
     cout << "Masukkan Jumlah \t: ";
     cin >> ternak.jumlahTelur;
@@ -115,7 +117,7 @@ void sortDesc(struct Record arr[], int n){
     for (i = 1; i < n; i++) {
         key = arr[i];
         j = i - 1;        
-        while (j >= 0 && arr[j].ID < key.ID) {
+        while (j >= 0 && arr[j].tanggal < key.tanggal) {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
@@ -123,43 +125,47 @@ void sortDesc(struct Record arr[], int n){
     }
 }
 
-void printData (struct Temp array[], int n) {
-    int i;
-    cout << "\nHasil Pengurutan Data Mahasiswa :\n" << endl;
-        for (i=0;i<n;i++) {
-            cout << array[i].tanggal << "\t\t" << array[i].ID << "\t\t" << array[i].jumlahTelur << endl;
-            i++;
-	} 
-    cout << endl;   
+int dataSize(fstream &Database) {
+    Record dataSize;
+    int size;
+
+
+    Database.open("data.txt");
+    while (getline(Database, dataSize.tanggal))
+        size++;
+
+    Database.close();
+
+    return size ;
 }
 
 void sortData() {
-    ifstream data;
-    data.open("data.txt");
-    int n = 0;
+    fstream Database;
+    int size;
 
-    Temp array[n];
+    size = dataSize(Database);
 
+    Database.open("data.txt");
 
-    data >> ternak.tanggal;
-    data >> ternak.ID;
-    data >> ternak.jumlahTelur;
-    
-    while (!data.eof()){
+    Record* sortRecord = new Record[size];
 
-        ternak.tanggal = array[n].tanggal;
+    for(int i = 0; i<size; i++){
 
-        data >> ternak.tanggal;
-        data >> ternak.ID;
-        data >> ternak.jumlahTelur;
-        n++;
+        Database >> sortRecord[i].tanggal;
+        Database >> sortRecord[i].ID;
+        Database >> sortRecord[i].jumlahTelur;
     }
 
-    data.close();
+    Database.close();
 
-    cout << n << endl;
-    cout << array[1].tanggal<< endl;
+    sortDesc(sortRecord, size);
 
-    // sortDesc(array, n);
-    printData(array, n);
+    Database.open("data.txt", ios::trunc | ios::out);
+
+    for (int i=0; i < size; i++){
+
+        Database << sortRecord[i].tanggal << "    "<< sortRecord[i].ID << "   " << sortRecord[i].jumlahTelur << endl;
+    }
+
+    Database.close();
 }
