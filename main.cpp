@@ -66,6 +66,7 @@ int main() {
         atexit;
     }
     else {
+        system ("clear");
         cout << "\nInput Tidak Valid !!! \n" << endl;
         goto menu;
     }
@@ -204,6 +205,17 @@ void sortData(int x) {
         sortQty(sortRecord, size);
         saveDB(sortRecord, size);
     }
+    
+    system("clear");
+    cout << "Hasil Pengurutan Data :\n" << endl;
+    cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
+    cout << "======================================================================" << endl;
+    for ( int i=0; i<size; i++) {
+        cout << sortRecord[i].tanggal << "\t\t" << sortRecord[i].ID << "\t" << sortRecord[i].jumlahTelur << "\t\t"<< "Rp " << sortRecord[i].harga << endl; 
+    }
+
+    cout << endl;
+    
 }
 
 void saveDB(struct Record sortRecord[], int size) {
