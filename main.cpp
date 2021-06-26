@@ -13,6 +13,7 @@ struct Record {
     string harga;
 }ternak;
 
+void openData();
 void addData();
 void inputData();
 void readData();
@@ -22,6 +23,8 @@ void sortData(int x);
 void saveDB(struct Record sortRecord[], int size);
 void searchData();
 void Search();
+void updateData();
+void deleteData();
 
 int main() {
     string x;
@@ -34,7 +37,9 @@ int main() {
     cout << "3. Urutkan Data dari Data Terbaru" << endl;
     cout << "4. Urutkan Data Berdasarkan Jumlah Telur" << endl;
     cout << "5. Mencari Data" << endl;
-    cout << "6. Exit" << endl;
+    cout << "6. Update Data" << endl;
+    cout << "7. Hapus Data" << endl;
+    cout << "8. Exit" << endl;
     cout << endl;
 
     cout << "Pilih Menu [1-4]: ";
@@ -60,7 +65,15 @@ int main() {
         searchData();
         goto menu;
     }
-    else if (x == "6") {
+    else if (x == "6"){
+        updateData();
+        goto menu;
+    }
+    else if (x== "7") {
+        deleteData();
+        goto menu;
+    }
+    else if (x == "8") {
         system("cls");
         atexit;
     }
@@ -270,9 +283,110 @@ void searchData () {
 
     for(int i=0;i<size;i++) {
         if(array[i].tanggal==keyword) {
+            cout << "test" << endl;
             printSearch(array[i]);
             return;
         }
     }
     printErr();
+}
+
+void updateData() {
+    string keyword, tanggal,bulan,tahun, tgl;
+    int size;
+
+    fstream Database;
+
+    size = dataSize(Database);
+
+    Database.open("data2.txt");
+
+    Record* array = new Record[size];
+
+    for(int i = 0; i<size; i++){
+
+        Database >> array[i].tanggal;
+        Database >> array[i].ID;
+        Database >> array[i].jumlahTelur;
+        Database >> array[i].harga;
+    }
+
+    Database.close();
+
+    cout<<"Masukkan Tanggal Record (dd/mm/yyyy) : ";
+    cin >> keyword;
+
+    for(int i=0;i<size;i++) {
+        if(array[i].tanggal==keyword) {
+            cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
+            cout << "======================================================================" << endl;
+            cout << array[i].tanggal << "\t\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t"<< "Rp " << array[i].harga << endl;
+
+            cout << "Masukkan Data Untuk Update Data : " << endl;
+                cout << "Masukkan Tanggal \t: ";
+                cin >> tanggal;
+                cout << "Masukkan Bulan \t\t: ";
+                cin >> bulan;
+                cout << "Masukkan Tahun \t\t: ";
+                cin >> tahun;
+
+                array[i].tanggal = tanggal + "/" + bulan + "/" + tahun;
+                array[i].ID = tahun + bulan + tanggal;
+
+                cout << "Masukkan Jumlah Telur \t: ";
+                cin >> array[i].jumlahTelur;
+                cout << "Masukkan Harga Telur/Kg \t: ";
+                cin >> array[i].harga;
+
+                saveDB(array, size);
+
+                cout << endl;
+            return;
+        }
+    }
+    printErr();
+}
+
+void deleteData () {
+    string keyword, tanggal,bulan,tahun, tgl;
+    int size;
+
+    fstream Database;
+
+    size = dataSize(Database);
+
+    Database.open("data2.txt");
+
+    Record* array = new Record[size];
+
+    for(int i = 0; i<size; i++){
+
+        Database >> array[i].tanggal;
+        Database >> array[i].ID;
+        Database >> array[i].jumlahTelur;
+        Database >> array[i].harga;
+    }
+
+    Database.close();
+
+    readData();
+
+    cout<<"Masukkan tanggal record yang ingin dihapus (dd/mm/yyyy) : ";
+    cin >> keyword;
+
+    for(int i=0;i<size;i++) {
+        if(array[i].tanggal==keyword) {
+            for(int j=i; j<size -1; j++) {
+                array[j].tanggal = array[j+1].tanggal;
+                array[j].ID = array[j+1].ID;
+                array[j].jumlahTelur = array[j+1].jumlahTelur;
+                array[j].harga = array[j+1].harga;
+            }
+            size--;
+
+            saveDB(array, size);
+            return;
+        }
+    }
+    printErr(); 
 }
