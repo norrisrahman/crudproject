@@ -9,7 +9,7 @@ using namespace std;
 struct Record {
 	string tanggal;
 	string ID;
-    string jumlahTelur;
+    int jumlahTelur;
     string harga;
 }ternak;
 
