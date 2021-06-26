@@ -71,6 +71,8 @@ int main() {
     }
     else if (x== "7") {
         deleteData();
+        system("cls");
+        cout << "Penghapusan Data Sukses" << endl;
         goto menu;
     }
     else if (x == "8") {
