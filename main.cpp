@@ -89,19 +89,20 @@ void inputData() {
     string tanggal,bulan,tahun, tgl;
 
     system("clear");
-    cout << "Input Record Harian" << endl;
-    cout << "Masukkan Tanggal \t: ";
+    cout << "\nInput Record Harian" << endl;
+    cout << "===================================\n"  << endl;
+    cout << "Masukkan Tanggal \t\t: ";
     cin >> tanggal;
-    cout << "Masukkan Bulan \t\t: ";
+    cout << "Masukkan Bulan \t\t\t: ";
     cin >> bulan;
-    cout << "Masukkan Tahun \t\t: ";
+    cout << "Masukkan Tahun \t\t\t: ";
     cin >> tahun;
 
     ternak.tanggal = tanggal + "/" + bulan + "/" + tahun;
 
     ternak.ID = tahun + bulan + tanggal;
 
-    cout << "Masukkan Jumlah Telur \t: ";
+    cout << "Masukkan Jumlah Telur \t\t: ";
     cin >> ternak.jumlahTelur;
     cout << "Masukkan Harga Telur/Kg \t: ";
     cin >> ternak.harga; 
@@ -313,16 +314,18 @@ void updateData() {
 
     Database.close();
 
-    cout<<"Masukkan Tanggal Record (dd/mm/yyyy) : ";
+    readData();
+
+    cout<<"Masukkan Tanggal Record Untuk Update Data (dd/mm/yyyy) : ";
     cin >> keyword;
 
     for(int i=0;i<size;i++) {
         if(array[i].tanggal==keyword) {
-            cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
+            cout << "\nTanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
             cout << "======================================================================" << endl;
             cout << array[i].tanggal << "\t\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t"<< "Rp " << array[i].harga << endl;
 
-            cout << "Masukkan Data Untuk Update Data : " << endl;
+            cout << "\nMasukkan Data Baru : " << endl;
                 cout << "Masukkan Tanggal \t: ";
                 cin >> tanggal;
                 cout << "Masukkan Bulan \t\t: ";
