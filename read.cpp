@@ -17,10 +17,17 @@ int banyakData() {
 
     database.open("data.txt");
 
-    while(getline(database, data.produk), getline(database, data.harga), getline(database, data.stok))
+    while(!database.eof()){
+        getline(database, data.produk);
+        getline(database, data.harga);
+        getline(database, data.stok);
         ukuran++;
-
+    }
     database.close();
+
+    ukuran = ukuran -1 ;
+
+    cout << ukuran << endl;
 
     return ukuran;
 

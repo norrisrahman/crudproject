@@ -118,7 +118,7 @@ void addData() {
     fstream data;
     data.open("data2.txt", ios::app);
 
-    data << ternak.tanggal << "    "<< ternak.ID << "   " << ternak.jumlahTelur << "   " << ternak.harga << endl;
+    data << ternak.tanggal << "    "<< ternak.ID << "   " << ternak.jumlahTelur << "    " << ternak.harga << endl;
 
     data.close();
 }
@@ -239,7 +239,7 @@ void saveDB(struct Record sortRecord[], int size) {
 
     for (int i=0; i < size; i++){
 
-        Database << sortRecord[i].tanggal << "    " << sortRecord[i].ID << "   " << sortRecord[i].jumlahTelur << "   " << sortRecord[i].harga << endl;
+        Database << sortRecord[i].tanggal << "    " << sortRecord[i].ID << "   " << sortRecord[i].jumlahTelur << "      " << sortRecord[i].harga << endl;
     }
 
     Database.close();
