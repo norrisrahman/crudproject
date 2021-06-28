@@ -10,8 +10,7 @@ struct Record {
 	string tanggal;
 	string ID;
     int jumlahTelur;
-    string harga;
-    int income;
+    int harga;
 };
 
 void openData();
