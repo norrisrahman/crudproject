@@ -11,10 +11,11 @@ struct Record {
 	string ID;
     int jumlahTelur;
     string harga;
-}ternak;
+    int income;
+};
 
 void openData();
-void addData();
+void addData(Record ternak);
 void inputData();
 void readData();
 void printData();
@@ -28,6 +29,10 @@ void deleteData();
 
 int main() {
     string x;
+
+    cout << "===================================================" << endl;
+    cout << "    Program Record Data Peternakan Ayam Petelur" << endl;
+    cout << "===================================================" << endl;
 
     menu:
     // system("cls");
@@ -90,6 +95,8 @@ int main() {
 void inputData() {
     string tanggal,bulan,tahun, tgl;
 
+    Record ternak;
+
     system("clear");
     cout << "\nInput Record Harian" << endl;
     cout << "===================================\n"  << endl;
@@ -109,12 +116,12 @@ void inputData() {
     cout << "Masukkan Harga Telur/Kg \t: ";
     cin >> ternak.harga; 
 
-    addData();
+    addData(ternak);
 
     cout << endl;
 }
 
-void addData() {
+void addData( Record ternak) {
     fstream data;
     data.open("data2.txt", ios::app);
 
@@ -125,6 +132,8 @@ void addData() {
 
 void readData() {
     ifstream data;
+    Record ternak;
+
     data.open("data2.txt");
 
     data >> ternak.tanggal;
