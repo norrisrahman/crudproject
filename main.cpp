@@ -99,11 +99,11 @@ void inputData() {
     system("clear");
     cout << "\nInput Record Harian" << endl;
     cout << "===================================\n"  << endl;
-    cout << "Masukkan Tanggal \t\t: ";
+    cout << "Masukkan Tanggal (dd)\t\t: ";
     cin >> tanggal;
-    cout << "Masukkan Bulan \t\t\t: ";
+    cout << "Masukkan Bulan (mm)\t\t: ";
     cin >> bulan;
-    cout << "Masukkan Tahun \t\t\t: ";
+    cout << "Masukkan Tahun (yyyy)\t\t: ";
     cin >> tahun;
 
     ternak.tanggal = tanggal + "/" + bulan + "/" + tahun;
