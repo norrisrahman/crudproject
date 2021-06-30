@@ -1,1 +1,3 @@
-Indomie           2300           2500
+Ssabun             2000               12
+Cocacola             34000               12
+Soklin             7500               23
