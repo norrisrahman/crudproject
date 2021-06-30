@@ -146,18 +146,31 @@ void addData( Record ternak) {
     data.close();
 }
 
-int dataSize(fstream &Database) {
-    Record dataSize;
-    int size;
+int dataSize(fstream &data) {
+    Record ternak;
+    int size = 0;
 
 
-    Database.open("data.txt");
-    while (getline(Database, dataSize.tanggal))
+    data.open("data.txt");
+    
+    data >> ternak.tanggal;
+    data >> ternak.ID;
+    data >> ternak.jumlahTelur;
+    data >> ternak.harga;
+    data >> ternak.income;
+    
+    while (!data.eof()){
         size++;
+        data >> ternak.tanggal;
+        data >> ternak.ID;
+        data >> ternak.jumlahTelur;
+        data >> ternak.harga;
+        data >> ternak.income;
+    }
+    
+    data.close();
 
-    Database.close();
-
-    return size ;
+    return size;
 }
 
 void readData() {
