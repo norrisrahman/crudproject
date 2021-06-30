@@ -13,12 +13,11 @@ struct Record {
     int harga;
 };
 
-void openData();
+int dataSize(fstream &Database);
 void addData(Record ternak);
 void inputData();
 void readData();
 void printData();
-int dataSize(fstream &Database);
 void sortData(int x);
 void saveDB(struct Record sortRecord[], int size);
 void searchData();
@@ -129,32 +128,49 @@ void addData( Record ternak) {
     data.close();
 }
 
+int dataSize(fstream &Database) {
+    Record dataSize;
+    int size;
+
+
+    Database.open("data2.txt");
+    while (getline(Database, dataSize.tanggal))
+        size++;
+
+    Database.close();
+
+    return size ;
+}
+
 void readData() {
-    ifstream data;
-    Record ternak;
+    fstream Database;
+    int size;
 
-    data.open("data2.txt");
+    size = dataSize(Database);
 
-    data >> ternak.tanggal;
-    data >> ternak.ID;
-    data >> ternak.jumlahTelur;
-    data >> ternak.harga;
+    Database.open("data2.txt");
+
+    Record* sortRecord = new Record[size];
+
+    for(int i = 0; i<size; i++){
+
+        Database >> sortRecord[i].tanggal;
+        Database >> sortRecord[i].ID;
+        Database >> sortRecord[i].jumlahTelur;
+        Database >> sortRecord[i].harga;
+    }
+
+    Database.close();
     
-    system ("cls");
-    cout << "\nMenampilkan Semua Record Data :\n" << endl;
+    system("cls");
+    cout << "Menampi;kan Semua Data :\n" << endl;
     cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
     cout << "======================================================================" << endl;
-    while (!data.eof()){
-        cout << ternak.tanggal << "\t\t" << ternak.ID << "\t" << ternak.jumlahTelur << "\t\t"<< "Rp " << ternak.harga << endl;
-
-        data >> ternak.tanggal;
-        data >> ternak.ID;
-        data >> ternak.jumlahTelur;
-        data >> ternak.harga;
+    for ( int i=0; i<size; i++) {
+        cout << sortRecord[i].tanggal << "\t\t" << sortRecord[i].ID << "\t" << sortRecord[i].jumlahTelur << "\t\t"<< "Rp " << sortRecord[i].harga << endl; 
     }
+
     cout << endl;
-    
-    data.close();
 }
 
 void sortDesc(struct Record arr[], int n){
@@ -183,20 +199,6 @@ void sortQty(struct Record arr[], int n) {
         }
             arr[j + 1] = key;
     }
-}
-
-int dataSize(fstream &Database) {
-    Record dataSize;
-    int size;
-
-
-    Database.open("data2.txt");
-    while (getline(Database, dataSize.tanggal))
-        size++;
-
-    Database.close();
-
-    return size ;
 }
 
 void sortData(int x) {
