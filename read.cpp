@@ -1,91 +1,103 @@
 #include <iostream>
-#include <string>
+#include <array>
+#include <cstdlib>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
 struct Toko {
-    string produk;
-    string harga;
-    string stok;
+	string produk;
+	string harga;
+    int stok;
 };
 
-int banyakData() {
-    fstream database;
-    int ukuran;
-    Toko data;
+void tulisData ( Toko tulisData) {
+    fstream myFile;
+    myFile.open("data.txt", ios::app);
 
-    database.open("data.txt");
+    myFile << tulisData.produk << "           "<< tulisData.harga << "           " << tulisData.stok <<  endl;
 
-    while(!database.eof()){
-        getline(database, data.produk);
-        getline(database, data.harga);
-        getline(database, data.stok);
-        ukuran++;
-    }
-    database.close();
-
-    ukuran = ukuran -1 ;
-
-    cout << ukuran << endl;
-
-    return ukuran;
-
+    myFile.close();
 }
 
-void printData(struct Toko printData[], int ukuran){
-    for(int i=0; i<ukuran; i++){
-        cout  << printData[i].produk << "\t\t\t" << printData[i].harga  << "\t\t\t" << printData[i].stok << endl; 
-    }
-}
+void tambahData() {
+    string tanggal,bulan,tahun, tgl;
 
-void isiData() {
-    fstream database;
+    Toko tambahData;
 
-    Toko inputData;
+    cout << "Masukkan Nama produk \t\t: ";
+    cin >> tambahData.produk;
+    cout << "Masukkan Jumlah Telur \t\t: ";
+    cin >> tambahData.harga;
+    cout << "Masukkan Harga Telur/Kg \t: ";
+    cin >> tambahData.stok; 
 
-    cout << "Masukkan Data : " << endl;
+    tulisData(tambahData);
 
-    cout << "Masukkan Nama Produk : ";
-    cin >> inputData.produk;
-    cout << "Masukkan Nama Harga : ";
-    cin >> inputData.harga;
-    cout << "Masukkan Nama Stok : ";
-    cin >> inputData.stok;
-
-    database.open("data.txt", ios::app);
-
-    database << inputData.produk << endl;
-    database << inputData.harga << endl;
-    database << inputData.stok << endl << endl;
-
-    database.close();
-
+    cout << endl;
 }
 
 void bacaData() {
-    fstream database;
+    ifstream myFile;
+    Toko dataToko;
 
-    int ukuran = banyakData();
+    myFile.open("data.txt");
+
+    myFile >> dataToko.produk;
+    myFile >> dataToko.harga;
+    myFile >> dataToko.stok;
     
-    Toko bacaData[ukuran];
+    system ("clear");
+    cout << "\nMenampilkan Semua Record Data :\n" << endl;
+    cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
+    cout << "======================================================================" << endl;
+    while (!myFile.eof()){
+        cout << dataToko.produk << "\t\t" << dataToko.harga << "\t" << dataToko.stok <<  endl;
 
-    database.open ("data.txt");
-
-    for (int i=0; i < ukuran; i++ ){
-        database  >> bacaData[i].produk;
-        database  >> bacaData[i].harga;
-        database  >> bacaData[i].stok;
+        myFile >> dataToko.produk;
+        myFile >> dataToko.harga;
+        myFile >> dataToko.stok;
     }
-
-    database.close();
-
-    printData(bacaData, ukuran);
-
-
+    cout << endl;
+    
+    myFile.close();
 }
 
-int main(){
-    isiData();
-    bacaData();
+int main() {
+    int x;
+
+    cout << "\t\t\t DATABASE PENJUALAN MINIMARKET ABC \t\t\t" << endl;
+    menu:
+    cout << "Pilih Menu :" << endl;
+    cout << "1. Tambahkan Produk" << endl;
+    cout << "2. Tampilkan Seluruh Data Produk" << endl;
+    cout << "3. Urutkan Produk Berdasarkan Update Terbaru" << endl;
+    cout << "4. Mencari Data" << endl;
+    cout << "5. Perbarui Data" << endl;
+    cout << "6. Hapus Data" << endl;
+    cout << "7. Keluar";
+    cout << endl;
+
+    cout << "Pilih Menu [1-6]: ";
+    cin >> x;
+
+    switch (x) {
+    case 1:
+        system ("clear");
+        tambahData();
+        goto menu;
+        break;
+    case 2 :
+        system("clear");
+        bacaData();
+        goto menu;
+        break;
+    
+    default:
+        break;
+    }
+
+    
+	return 0;
 }

@@ -84,7 +84,7 @@ int main() {
         atexit;
     }
     else {
-        system ("clear");
+        system ("cls");
         cout << "\nInput Tidak Valid !!! \n" << endl;
         goto menu;
     }
@@ -96,7 +96,7 @@ void inputData() {
 
     Record ternak;
 
-    system("clear");
+    system("cls");
     cout << "\nInput Record Harian" << endl;
     cout << "===================================\n"  << endl;
     cout << "Masukkan Tanggal (dd)\t\t: ";
@@ -140,7 +140,7 @@ void readData() {
     data >> ternak.jumlahTelur;
     data >> ternak.harga;
     
-    system ("clear");
+    system ("cls");
     cout << "\nMenampilkan Semua Record Data :\n" << endl;
     cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
     cout << "======================================================================" << endl;
@@ -228,7 +228,7 @@ void sortData(int x) {
         saveDB(sortRecord, size);
     }
     
-    system("clear");
+    system("cls");
     cout << "Hasil Pengurutan Data :\n" << endl;
     cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
     cout << "======================================================================" << endl;
@@ -254,12 +254,12 @@ void saveDB(struct Record sortRecord[], int size) {
 }
 
 void printErr () {
-    system ("clear");
+    system ("cls");
     cout << "\n\nKeyword Invalid / Data Tidak Ada\n\n"<< endl;
 }
 
 void printSearch (Record array) {
-    system ("clear");
+    system ("cls");
     cout << "\nHasil Pencarian Data :\n" << endl;
     cout << "Tanggal\t\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg" << endl;
     cout << "======================================================================" << endl;
