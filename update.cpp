@@ -162,9 +162,8 @@ int dataSize(fstream &Database) {
 
 void readData() {
     fstream Database;
-    int size;
 
-    size = dataSize(Database);
+    int size = dataSize(Database);
 
     Database.open("data.txt");
 
@@ -360,17 +359,17 @@ void updateData() {
             cout << array[i].tanggal << "\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t"<< "Rp " << array[i].harga << "\t"<< "Rp " << array[i].income << endl; 
 
             cout << "\nMasukkan Data Baru : " << endl;
-                cout << "Masukkan Tanggal \t: ";
+                cout << "Masukkan Tanggal \t\t: ";
                 cin >> tanggal;
-                cout << "Masukkan Bulan \t\t: ";
+                cout << "Masukkan Bulan \t\t\t: ";
                 cin >> bulan;
-                cout << "Masukkan Tahun \t\t: ";
+                cout << "Masukkan Tahun \t\t\t: ";
                 cin >> tahun;
 
                 array[i].tanggal = tanggal + "/" + bulan + "/" + tahun;
                 array[i].ID = tahun + bulan + tanggal;
 
-                cout << "Masukkan Jumlah Telur \t: ";
+                cout << "Masukkan Jumlah Telur \t\t: ";
                 cin >> array[i].jumlahTelur;
                 cout << "Masukkan Harga Telur/Kg \t: ";
                 cin >> array[i].harga;
