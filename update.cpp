@@ -327,7 +327,7 @@ void searchData () {
 
 void updateData() {
     string keyword, tanggal,bulan,tahun, tgl;
-    int size;
+    int size, income;
 
     fstream Database;
 
@@ -375,6 +375,10 @@ void updateData() {
                 cout << "Masukkan Harga Telur/Kg \t: ";
                 cin >> array[i].harga;
 
+                income = array[i].jumlahTelur * array[i].harga;
+
+                array[i].income = formatAngka(income);
+
                 saveDB(array, size);
 
                 cout << endl;
@@ -419,6 +423,7 @@ void deleteData () {
                 array[j].ID = array[j+1].ID;
                 array[j].jumlahTelur = array[j+1].jumlahTelur;
                 array[j].harga = array[j+1].harga;
+                array[j].income = array[j+1].income;
             }
             size--;
 
