@@ -182,7 +182,7 @@ void readData() {
     Database.close();
     
     system("cls");
-    cout << "Menampi;kan Semua Data :\n" << endl;
+    cout << "Menampilkan Semua Data :\n" << endl;
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "================================================================================" << endl;
     for ( int i=0; i<size; i++) {
