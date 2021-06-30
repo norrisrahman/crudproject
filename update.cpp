@@ -30,9 +30,9 @@ void deleteData();
 int main() {
     string x;
 
-    cout << "===================================================" << endl;
-    cout << "    Program Record Data Peternakan Ayam Petelur" << endl;
-    cout << "===================================================" << endl;
+    cout << "=========================================================" << endl;
+    cout << "    Program Record Data Harian Peternakan Ayam Petelur" << endl;
+    cout << "=========================================================" << endl;
 
     menu:
     // system("cls");
