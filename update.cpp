@@ -14,6 +14,7 @@ struct Record {
     string income;
 };
 
+void checkDb();
 int dataSize(fstream &Database);
 void addData(Record ternak);
 string formatAngka(int angka);
@@ -29,13 +30,14 @@ void deleteData();
 
 int main() {
     string x;
+    checkDb();
 
     cout << "=========================================================" << endl;
     cout << "    Program Record Data Harian Peternakan Ayam Petelur" << endl;
     cout << "=========================================================" << endl;
 
     menu:
-    // system("cls");
+    // system("clear");
     cout << "Pilih Jenis Operasi :" << endl;
     cout << "1. Tambah Data" << endl;
     cout << "2. Tampilkan Seluruh Data" << endl;
@@ -76,29 +78,35 @@ int main() {
     }
     else if (x== "7") {
         deleteData();
-        system("cls");
+        system("clear");
         cout << "Penghapusan Data Sukses" << endl;
         goto menu;
     }
     else if (x == "8") {
-        system("cls");
+        system("clear");
         atexit;
     }
     else {
-        system ("cls");
+        system ("clear");
         cout << "\nInput Tidak Valid !!! \n" << endl;
         goto menu;
     }
 	return 0;
 }
 
+void checkDb() {
+    fstream Database;
+    Database.open("data.txt", ios::app);
+    Database.close();
+}
+
 void inputData() {
     string tanggal,bulan,tahun, tgl;
     int income;
 
-    Record ternak;
+    Record inputData;
 
-    system("cls");
+    system("clear");
     cout << "\nInput Record Harian" << endl;
     cout << "===================================\n"  << endl;
     cout << "Masukkan Tanggal (dd)\t\t: ";
@@ -108,20 +116,20 @@ void inputData() {
     cout << "Masukkan Tahun (yyyy)\t\t: ";
     cin >> tahun;
 
-    ternak.tanggal = tanggal + "/" + bulan + "/" + tahun;
+    inputData.tanggal = tanggal + "/" + bulan + "/" + tahun;
 
-    ternak.ID = tahun + bulan + tanggal;
+    inputData.ID = tahun + bulan + tanggal;
 
     cout << "Masukkan Jumlah Telur \t\t: ";
-    cin >> ternak.jumlahTelur;
+    cin >> inputData.jumlahTelur;
     cout << "Masukkan Harga Telur/Kg \t: ";
-    cin >> ternak.harga; 
+    cin >> inputData.harga; 
 
-    income = ternak.jumlahTelur * ternak.harga;
+    income = inputData.jumlahTelur * inputData.harga;
 
-    ternak.income = formatAngka(income);
+    inputData.income = formatAngka(income);
 
-    addData(ternak);
+    addData(inputData);
 
     cout << endl;
 }
@@ -137,13 +145,13 @@ string perantara = ".";
  return output;
 }
 
-void addData( Record ternak) {
-    fstream data;
-    data.open("data.txt", ios::app);
+void addData( Record addData) {
+    fstream Database;
+    Database.open("data.txt", ios::app);
 
-    data << ternak.tanggal << "    "<< ternak.ID << "   " << ternak.jumlahTelur << "    " << ternak.harga << "         " << ternak.income << endl;
+    Database << addData.tanggal << "    "<< addData.ID << "   " << addData.jumlahTelur << "    " << addData.harga << "         " << addData.income << endl;
 
-    data.close();
+    Database.close();
 }
 
 int dataSize(fstream &data) {
@@ -193,7 +201,7 @@ void readData() {
 
     Database.close();
     
-    system("cls");
+    system("clear");
     cout << "Menampilkan Semua Data :\n" << endl;
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "================================================================================" << endl;
@@ -262,7 +270,7 @@ void sortData(int x) {
         saveDB(sortRecord, size);
     }
     
-    system("cls");
+    system("clear");
     cout << "Hasil Pengurutan Data :\n" << endl;
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "================================================================================" << endl;
@@ -288,22 +296,13 @@ void saveDB(struct Record sortRecord[], int size) {
 }
 
 void printErr () {
-    system ("cls");
+    system ("clear");
     cout << "\n\nKeyword Invalid / Data Tidak Ada\n\n"<< endl;
-}
-
-void printSearch (Record array) {
-    system ("cls");
-    cout << "\nHasil Pencarian Data :\n" << endl;
-    cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
-    cout << "================================================================================" << endl;
-    cout << array.tanggal << "\t" << array.ID << "\t" << array.jumlahTelur << "\t\t"<< "Rp " << array.harga << "\t"<< "Rp " << array.income << endl; 
-    cout << endl; 
 }
 
 void searchData () {
     string keyword;
-    int size;
+    int size, ind= 0;
 
     fstream Database;
 
@@ -327,14 +326,21 @@ void searchData () {
     cout<<"Masukkan Tanggal Record (dd/mm/yyyy) : ";
     cin >> keyword;
 
+
+    cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
+    cout << "================================================================================" << endl;
     for(int i=0;i<size;i++) {
         if(array[i].tanggal==keyword) {
-            cout << "test" << endl;
-            printSearch(array[i]);
-            return;
+            cout << array[i].tanggal << "\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t"<< "Rp " << array[i].harga << "\t"<< "Rp " << array[i].income << endl;
+            ind++;
         }
     }
-    printErr();
+    cout << endl;
+    if (ind == 0){
+        printErr();
+    }else{
+        return; 
+    }
 }
 
 void updateData() {
