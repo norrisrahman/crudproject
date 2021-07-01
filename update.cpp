@@ -119,7 +119,6 @@ void getDb(struct Record getDb[], int size) {
     
 }
 
-
 void inputData() {
     string tanggal,bulan,tahun, tgl;
     int income;
