@@ -15,7 +15,8 @@ struct Record {
 };
 
 void checkDb();
-int dataSize(fstream &Database);
+int dataSize();
+void getDb();
 void addData(Record ternak);
 string formatAngka(int angka);
 void inputData();
@@ -100,6 +101,25 @@ void checkDb() {
     Database.close();
 }
 
+void getDb(struct Record getDb[], int size) {
+    fstream Database;
+
+    Database.open("data.txt");
+
+    for(int i = 0; i<size; i++){
+
+        Database >> getDb[i].tanggal;
+        Database >> getDb[i].ID;
+        Database >> getDb[i].jumlahTelur;
+        Database >> getDb[i].harga;
+        Database >> getDb[i].income;
+    }
+
+    Database.close();
+    
+}
+
+
 void inputData() {
     string tanggal,bulan,tahun, tgl;
     int income;
@@ -135,14 +155,14 @@ void inputData() {
 }
 
 string formatAngka(int angka) {
-string perantara = ".";
- string output = to_string(angka);
- int inspost = output.length() - 3;
- while (inspost > 0) {
-  output.insert(inspost, perantara);
-  inspost -= 3;
- }
- return output;
+    string perantara = ".";
+    string output = to_string(angka);
+    int inspost = output.length() - 3;
+    while (inspost > 0) {
+        output.insert(inspost, perantara);
+        inspost -= 3;
+    }
+    return output;
 }
 
 void addData( Record addData) {
@@ -154,7 +174,8 @@ void addData( Record addData) {
     Database.close();
 }
 
-int dataSize(fstream &data) {
+int dataSize() {
+    fstream data;
     Record ternak;
     int size = 0;
 
@@ -182,31 +203,19 @@ int dataSize(fstream &data) {
 }
 
 void readData() {
-    fstream Database;
 
-    int size = dataSize(Database);
-
-    Database.open("data.txt");
-
-    Record* sortRecord = new Record[size];
-
-    for(int i = 0; i<size; i++){
-
-        Database >> sortRecord[i].tanggal;
-        Database >> sortRecord[i].ID;
-        Database >> sortRecord[i].jumlahTelur;
-        Database >> sortRecord[i].harga;
-        Database >> sortRecord[i].income;
-    }
-
-    Database.close();
+    int size = dataSize();
     
+    Record* readData = new Record[size];
+
+    getDb(readData, size);
+
     system("clear");
     cout << "Menampilkan Semua Data :\n" << endl;
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "================================================================================" << endl;
     for ( int i=0; i<size; i++) {
-        cout << sortRecord[i].tanggal << "\t" << sortRecord[i].ID << "\t" << sortRecord[i].jumlahTelur << "\t\t"<< "Rp " << sortRecord[i].harga << "\t"<< "Rp " << sortRecord[i].income << endl; 
+        cout << readData[i].tanggal << "\t" << readData[i].ID << "\t" << readData[i].jumlahTelur << "\t\t"<< "Rp " << readData[i].harga << "\t"<< "Rp " << readData[i].income << endl; 
     }
 
     cout << endl;
@@ -241,25 +250,11 @@ void sortQty(struct Record arr[], int n) {
 }
 
 void sortData(int x) {
-    fstream Database;
-    int size;
-
-    size = dataSize(Database);
-
-    Database.open("data.txt");
-
+    int size = dataSize();
+    
     Record* sortRecord = new Record[size];
 
-    for(int i = 0; i<size; i++){
-
-        Database >> sortRecord[i].tanggal;
-        Database >> sortRecord[i].ID;
-        Database >> sortRecord[i].jumlahTelur;
-        Database >> sortRecord[i].harga;
-        Database >> sortRecord[i].income;
-    }
-
-    Database.close();
+    getDb(sortRecord, size);
 
     if (x == 1) {
         sortDesc(sortRecord, size);
@@ -302,32 +297,19 @@ void printErr () {
 
 void searchData () {
     string keyword;
-    int size, ind= 0;
+    int ind= 0;
 
-    fstream Database;
-
-    size = dataSize(Database);
-
-    Database.open("data.txt");
-
+    int size = dataSize();
+    
     Record* array = new Record[size];
 
-    for(int i = 0; i<size; i++){
-
-        Database >> array[i].tanggal;
-        Database >> array[i].ID;
-        Database >> array[i].jumlahTelur;
-        Database >> array[i].harga;
-        Database >> array[i].income;
-    }
-
-    Database.close();
+    getDb(array, size);
 
     cout<<"Masukkan Tanggal Record (dd/mm/yyyy) : ";
     cin >> keyword;
 
     system("clear");
-    cout << "Hasil Pencarian :";
+    cout << "Hasil Pencarian :" << endl;
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "================================================================================" << endl;
     for(int i=0;i<size;i++) {
@@ -346,26 +328,13 @@ void searchData () {
 
 void updateData() {
     string keyword, tanggal,bulan,tahun, tgl;
-    int size, income;
+    int income;
 
-    fstream Database;
-
-    size = dataSize(Database);
-
-    Database.open("data.txt");
-
+    int size = dataSize();
+    
     Record* array = new Record[size];
 
-    for(int i = 0; i<size; i++){
-
-        Database >> array[i].tanggal;
-        Database >> array[i].ID;
-        Database >> array[i].jumlahTelur;
-        Database >> array[i].harga;
-        Database >> array[i].income;
-    }
-
-    Database.close();
+    getDb(array, size);
 
     readData();
 
@@ -409,26 +378,11 @@ void updateData() {
 
 void deleteData () {
     string keyword, tanggal,bulan,tahun, tgl;
-    int size;
-
-    fstream Database;
-
-    size = dataSize(Database);
-
-    Database.open("data.txt");
-
+    int size = dataSize();
+    
     Record* array = new Record[size];
 
-    for(int i = 0; i<size; i++){
-
-        Database >> array[i].tanggal;
-        Database >> array[i].ID;
-        Database >> array[i].jumlahTelur;
-        Database >> array[i].harga;
-        Database >> array[i].income;
-    }
-
-    Database.close();
+    getDb(array, size);
 
     readData();
 
