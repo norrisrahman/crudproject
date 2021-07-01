@@ -326,7 +326,8 @@ void searchData () {
     cout<<"Masukkan Tanggal Record (dd/mm/yyyy) : ";
     cin >> keyword;
 
-
+    system("clear");
+    cout << "Hasil Pencarian :";
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "================================================================================" << endl;
     for(int i=0;i<size;i++) {
