@@ -95,12 +95,14 @@ int main() {
 	return 0;
 }
 
+//Untuk Mengecek File Dtabase
 void checkDb() {
     fstream Database;
     Database.open("data.txt", ios::app);
     Database.close();
 }
 
+//Untuk Mengambil Database
 void getDb(struct Record getDb[], int size) {
     fstream Database;
 
@@ -119,6 +121,7 @@ void getDb(struct Record getDb[], int size) {
     
 }
 
+//Untuk Input Data
 void inputData() {
     string tanggal,bulan,tahun, tgl;
     int income;
@@ -153,6 +156,7 @@ void inputData() {
     cout << endl;
 }
 
+//Untuk Memformat Agka Menjadi 3 digit
 string formatAngka(int angka) {
     string perantara = ".";
     string output = to_string(angka);
@@ -164,6 +168,7 @@ string formatAngka(int angka) {
     return output;
 }
 
+//Untuk Menyimpan Data Input Ke Database
 void addData( Record addData) {
     fstream Database;
     Database.open("data.txt", ios::app);
@@ -173,6 +178,7 @@ void addData( Record addData) {
     Database.close();
 }
 
+//Untuk Menghitung Besar Data dalam Database
 int dataSize() {
     fstream Database;
     Record dataSize;
@@ -201,6 +207,8 @@ int dataSize() {
     return size;
 }
 
+
+//Untuk Membaca Data dalam Database
 void readData() {
 
     int size = dataSize();
@@ -220,6 +228,7 @@ void readData() {
     cout << endl;
 }
 
+//Fungsi Untuk Mengurutkan Berdasarkan Tanggal Terbaru
 void sortDesc(struct Record arr[], int n){
     int i, j;
     struct Record key;
@@ -234,6 +243,7 @@ void sortDesc(struct Record arr[], int n){
     }
 }
 
+//Fungsi Untuk Mengurutkan Data Berdasarkan Jumlah Telur dari yang Terbanyak
 void sortQty(struct Record arr[], int n) {
     int i, j;
     struct Record key;
@@ -248,6 +258,7 @@ void sortQty(struct Record arr[], int n) {
     }
 }
 
+//Untuk Mengurutkan Dan Menampilkan Hasil Pengurutan Data
 void sortData(int x) {
     int size = dataSize();
     
@@ -276,6 +287,7 @@ void sortData(int x) {
     
 }
 
+//Untuk Menyimpan Data Kedalam Database;
 void saveDB(struct Record sortRecord[], int size) {
 
     fstream Database;
@@ -289,11 +301,13 @@ void saveDB(struct Record sortRecord[], int size) {
     Database.close();
 }
 
+//Untuk menampilkan Pesan Error
 void printErr () {
     system ("clear");
     cout << "\n\nKeyword Invalid / Data Tidak Ada\n\n"<< endl;
 }
 
+//Untuk Mencari Data
 void searchData () {
     string keyword;
     int ind= 0;
@@ -325,6 +339,7 @@ void searchData () {
     }
 }
 
+//Untuk Mengganti Data
 void updateData() {
     string keyword, tanggal,bulan,tahun, tgl;
     int income;
@@ -375,6 +390,7 @@ void updateData() {
     printErr();
 }
 
+//Untuk Menghapus Data
 void deleteData () {
     string keyword, tanggal,bulan,tahun, tgl;
     int size = dataSize();
