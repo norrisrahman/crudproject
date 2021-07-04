@@ -253,9 +253,24 @@ void sortAcc(struct Record arr[], int n){
     }
 }
 
+//Fungsi Untuk Mengurutkan Berdasarkan Tanggal Terlama
+void sortQty(struct Record arr[], int n){
+    int i, j;
+    struct Record key;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;        
+        while (j >= 0 && arr[j].jumlahTelur < key.jumlahTelur) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+            arr[j + 1] = key;
+    }
+}
+
 //Untuk Mengurutkan Dan Menampilkan Hasil Pengurutan Data
 void sortData() {
-    string z;
+    string opt;
     int size = dataSize();
     
     Record* sortRecord = new Record[size];
@@ -267,16 +282,21 @@ void sortData() {
     cout << "Pilih Jenis Pengurutan Data :" << endl;
     cout << "=============================" << endl;
     cout << "1. Urutkan Data Berdasarkan Tanggal Terbaru"  << endl;
-    cout << "2. Urutkan Data Dari Tanggal Terlama\n"  << endl;
+    cout << "2. Urutkan Data Dari Tanggal Terlama"  << endl;
+    cout << "3. Urutkan Data Dari Jumlah Telur Terbanyak\n"  << endl;
     cout << "Masukkan Pilihan [1-2] : ";
-    cin >> z;
+    cin >> opt;
 
-    if (z == "1") {
+    if (opt == "1") {
         sortDesc(sortRecord, size);
         saveDB(sortRecord, size);
     }
-    else if ( z== "2") {
+    else if ( opt == "2") {
         sortAcc(sortRecord, size);
+        saveDB(sortRecord, size);
+    }
+    else if (opt == "3") {
+        sortQty(sortRecord, size);
         saveDB(sortRecord, size);
     }
     else{
