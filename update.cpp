@@ -22,7 +22,7 @@ string formatAngka(int angka);
 void inputData();
 void readData();
 void printData();
-void sortData(int x);
+void sortData();
 void saveDB(struct Record sortRecord[], int size);
 void searchData();
 void Search();
@@ -42,12 +42,11 @@ int main() {
     cout << "Pilih Jenis Operasi :" << endl;
     cout << "1. Tambah Data" << endl;
     cout << "2. Tampilkan Seluruh Data" << endl;
-    cout << "3. Urutkan Data dari Data Terbaru" << endl;
-    cout << "4. Urutkan Data Berdasarkan Jumlah Telur" << endl;
-    cout << "5. Mencari Data" << endl;
-    cout << "6. Update Data" << endl;
-    cout << "7. Hapus Data" << endl;
-    cout << "8. Exit" << endl;
+    cout << "3. Urutkan Data" << endl;
+    cout << "4. Mencari Data" << endl;
+    cout << "5. Update Data" << endl;
+    cout << "6. Hapus Data" << endl;
+    cout << "7. Exit" << endl;
     cout << endl;
 
     cout << "Pilih Menu [1-4]: ";
@@ -62,28 +61,24 @@ int main() {
         goto menu;
     }
     else if (x =="3" ) {
-        sortData(1);
+        sortData();
         goto menu;
     }
-    else if (x == "4"){
-        sortData(2);
-        goto menu;
-    }
-    else if (x =="5") {
+    else if (x =="4") {
         searchData();
         goto menu;
     }
-    else if (x == "6"){
+    else if (x == "5"){
         updateData();
         goto menu;
     }
-    else if (x== "7") {
+    else if (x== "6") {
         deleteData();
         system("clear");
         cout << "Penghapusan Data Sukses" << endl;
         goto menu;
     }
-    else if (x == "8") {
+    else if (x == "7") {
         system("clear");
         atexit;
     }
@@ -243,14 +238,14 @@ void sortDesc(struct Record arr[], int n){
     }
 }
 
-//Fungsi Untuk Mengurutkan Data Berdasarkan Jumlah Telur dari yang Terbanyak
-void sortQty(struct Record arr[], int n) {
+//Fungsi Untuk Mengurutkan Berdasarkan Tanggal Terlama
+void sortAcc(struct Record arr[], int n){
     int i, j;
     struct Record key;
     for (i = 1; i < n; i++) {
         key = arr[i];
         j = i - 1;        
-        while (j >= 0 && arr[j].jumlahTelur < key.jumlahTelur) {
+        while (j >= 0 && arr[j].ID > key.ID) {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
@@ -259,20 +254,34 @@ void sortQty(struct Record arr[], int n) {
 }
 
 //Untuk Mengurutkan Dan Menampilkan Hasil Pengurutan Data
-void sortData(int x) {
+void sortData() {
+    string z;
     int size = dataSize();
     
     Record* sortRecord = new Record[size];
 
     getDb(sortRecord, size);
 
-    if (x == 1) {
+    system ("cls");
+    opt:
+    cout << "Pilih Jenis Pengurutan Data :" << endl;
+    cout << "=============================" << endl;
+    cout << "1. Urutkan Data Berdasarkan Tanggal Terbaru"  << endl;
+    cout << "2. Urutkan Data Dari Tanggal Terlama\n"  << endl;
+    cout << "Masukkan Pilihan [1-2] : ";
+    cin >> z;
+
+    if (z == "1") {
         sortDesc(sortRecord, size);
         saveDB(sortRecord, size);
     }
-    else if ( x== 2) {
-        sortQty(sortRecord, size);
+    else if ( z== "2") {
+        sortAcc(sortRecord, size);
         saveDB(sortRecord, size);
+    }
+    else{
+        cout << "Input Tidak Valid" << endl;
+        goto opt;
     }
     
     system("clear");
@@ -362,11 +371,11 @@ void updateData() {
             cout << array[i].tanggal << "\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t"<< "Rp " << array[i].harga << "\t"<< "Rp " << array[i].income << endl; 
 
             cout << "\nMasukkan Data Baru : " << endl;
-                cout << "Masukkan Tanggal \t\t: ";
+                cout << "Masukkan Tanggal (dd)\t\t: ";
                 cin >> tanggal;
-                cout << "Masukkan Bulan \t\t\t: ";
+                cout << "Masukkan Bulan (mm)\t\t: ";
                 cin >> bulan;
-                cout << "Masukkan Tahun \t\t\t: ";
+                cout << "Masukkan Tahun (yyyy)\t\t: ";
                 cin >> tahun;
 
                 array[i].tanggal = tanggal + "/" + bulan + "/" + tahun;
