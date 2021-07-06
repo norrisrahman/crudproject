@@ -70,6 +70,8 @@ int main() {
     }
     else if (x == "5"){
         updateData();
+        system("clear");
+        cout << "Update Data Sukses" << endl;
         goto menu;
     }
     else if (x== "6") {
@@ -137,7 +139,7 @@ void inputData() {
 
     inputData.ID = tahun + bulan + tanggal;
 
-    cout << "Masukkan Jumlah Telur \t\t: ";
+    cout << "Masukkan Jumlah Telur (Kg) \t: ";
     cin >> inputData.jumlahTelur;
     cout << "Masukkan Harga Telur/Kg \t: ";
     cin >> inputData.harga; 
@@ -214,10 +216,10 @@ void readData() {
 
     system("clear");
     cout << "Menampilkan Semua Data :\n" << endl;
-    cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
-    cout << "================================================================================" << endl;
+    cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur (Kg)" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
+    cout << "==========================================================================================" << endl;
     for ( int i=0; i<size; i++) {
-        cout << readData[i].tanggal << "\t" << readData[i].ID << "\t" << readData[i].jumlahTelur << "\t\t"<< "Rp " << readData[i].harga << "\t"<< "Rp " << readData[i].income << endl; 
+        cout << readData[i].tanggal << "\t" << readData[i].ID << "\t" << readData[i].jumlahTelur << "\t\t\t"<< "Rp " << readData[i].harga << "\t"<< "Rp " << readData[i].income << endl; 
     }
 
     cout << endl;
@@ -253,7 +255,7 @@ void sortAcc(struct Record arr[], int n){
     }
 }
 
-//Fungsi Untuk Mengurutkan Berdasarkan Tanggal Terlama
+//Fungsi Untuk Mengurutkan Berdasarkan Jumlah Telur Terbanyak
 void sortQty(struct Record arr[], int n){
     int i, j;
     struct Record key;
@@ -306,10 +308,10 @@ void sortData() {
     
     system("clear");
     cout << "Hasil Pengurutan Data :\n" << endl;
-    cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
-    cout << "================================================================================" << endl;
+    cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur (Kg)" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
+    cout << "==========================================================================================" << endl;
     for ( int i=0; i<size; i++) {
-        cout << sortRecord[i].tanggal << "\t" << sortRecord[i].ID << "\t" << sortRecord[i].jumlahTelur << "\t\t"<< "Rp " << sortRecord[i].harga << "\t"<< "Rp " << sortRecord[i].income << endl;  
+        cout << sortRecord[i].tanggal << "\t" << sortRecord[i].ID << "\t" << sortRecord[i].jumlahTelur << "\t\t\t"<< "Rp " << sortRecord[i].harga << "\t"<< "Rp " << sortRecord[i].income << endl;  
     }
 
     cout << endl;
@@ -352,11 +354,11 @@ void searchData () {
 
     system("clear");
     cout << "Hasil Pencarian :" << endl;
-    cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
-    cout << "================================================================================" << endl;
+    cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur (Kg)" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
+    cout << "==========================================================================================" << endl;
     for(int i=0;i<size;i++) {
         if(array[i].tanggal==keyword) {
-            cout << array[i].tanggal << "\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t"<< "Rp " << array[i].harga << "\t"<< "Rp " << array[i].income << endl;
+            cout << array[i].tanggal << "\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t\t"<< "Rp " << array[i].harga << "\t"<< "Rp " << array[i].income << endl;
             ind++;
         }
     }
@@ -384,11 +386,13 @@ void updateData() {
     cout<<"Masukkan Tanggal Record Untuk Update Data (dd/mm/yyyy) : ";
     cin >> keyword;
 
+    system("clear");
+
     for(int i=0;i<size;i++) {
         if(array[i].tanggal==keyword) {
-            cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
-            cout << "================================================================================" << endl;
-            cout << array[i].tanggal << "\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t"<< "Rp " << array[i].harga << "\t"<< "Rp " << array[i].income << endl; 
+            cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur (Kg)" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
+            cout << "==========================================================================================" << endl;
+            cout << array[i].tanggal << "\t" << array[i].ID << "\t" << array[i].jumlahTelur << "\t\t\t"<< "Rp " << array[i].harga << "\t"<< "Rp " << array[i].income << endl; 
 
             cout << "\nMasukkan Data Baru : " << endl;
                 cout << "Masukkan Tanggal (dd)\t\t: ";
@@ -401,7 +405,7 @@ void updateData() {
                 array[i].tanggal = tanggal + "/" + bulan + "/" + tahun;
                 array[i].ID = tahun + bulan + tanggal;
 
-                cout << "Masukkan Jumlah Telur \t\t: ";
+                cout << "Masukkan Jumlah Telur (Kg)\t: ";
                 cin >> array[i].jumlahTelur;
                 cout << "Masukkan Harga Telur/Kg \t: ";
                 cin >> array[i].harga;
