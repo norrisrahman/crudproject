@@ -38,7 +38,7 @@ int main() {
     cout << "=========================================================" << endl;
 
     menu:
-    // system("clear");
+    // system("cls");
     cout << "Pilih Jenis Operasi :" << endl;
     cout << "1. Tambah Data" << endl;
     cout << "2. Tampilkan Seluruh Data" << endl;
@@ -70,22 +70,22 @@ int main() {
     }
     else if (x == "5"){
         updateData();
-        system("clear");
+        system("cls");
         cout << "Update Data Sukses" << endl;
         goto menu;
     }
     else if (x== "6") {
         deleteData();
-        system("clear");
+        system("cls");
         cout << "Penghapusan Data Sukses" << endl;
         goto menu;
     }
     else if (x == "7") {
-        system("clear");
+        system("cls");
         atexit;
     }
     else {
-        system ("clear");
+        system ("cls");
         cout << "\nInput Tidak Valid !!! \n" << endl;
         goto menu;
     }
@@ -125,7 +125,7 @@ void inputData() {
 
     Record inputData;
 
-    system("clear");
+    system("cls");
     cout << "\nInput Record Harian" << endl;
     cout << "===================================\n"  << endl;
     cout << "Masukkan Tanggal (dd)\t\t: ";
@@ -214,7 +214,7 @@ void readData() {
 
     getDb(readData, size);
 
-    system("clear");
+    system("cls");
     cout << "Menampilkan Semua Data :\n" << endl;
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur (Kg)" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "==========================================================================================" << endl;
@@ -279,7 +279,7 @@ void sortData() {
 
     getDb(sortRecord, size);
 
-    system ("clear");
+    system ("cls");
     opt:
     cout << "Pilih Jenis Pengurutan Data :" << endl;
     cout << "=============================" << endl;
@@ -306,7 +306,7 @@ void sortData() {
         goto opt;
     }
     
-    system("clear");
+    system("cls");
     cout << "Hasil Pengurutan Data :\n" << endl;
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur (Kg)" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "==========================================================================================" << endl;
@@ -334,7 +334,7 @@ void saveDB(struct Record sortRecord[], int size) {
 
 //Untuk menampilkan Pesan Error
 void printErr () {
-    system ("clear");
+    system ("cls");
     cout << "\n\nKeyword Invalid / Data Tidak Ada\n\n"<< endl;
 }
 
@@ -352,7 +352,7 @@ void searchData () {
     cout<<"Masukkan Tanggal Record (dd/mm/yyyy) : ";
     cin >> keyword;
 
-    system("clear");
+    system("cls");
     cout << "Hasil Pencarian :" << endl;
     cout << "Tanggal\t\t" << "ID Record\t" << "Jumlah Telur (Kg)" << "\t" << "Harga /Kg\t" << "Total Pemasukan" << endl;
     cout << "==========================================================================================" << endl;
@@ -386,7 +386,7 @@ void updateData() {
     cout<<"Masukkan Tanggal Record Untuk Update Data (dd/mm/yyyy) : ";
     cin >> keyword;
 
-    system("clear");
+    system("cls");
 
     for(int i=0;i<size;i++) {
         if(array[i].tanggal==keyword) {
