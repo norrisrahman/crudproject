@@ -277,7 +277,7 @@ void sortData() {
 
     getDb(sortRecord, size);
 
-    system ("cls");
+    system ("clear");
     opt:
     cout << "Pilih Jenis Pengurutan Data :" << endl;
     cout << "=============================" << endl;
